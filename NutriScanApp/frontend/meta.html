@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT IA — Meta Calórica</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       PANTALLA: META CALÓRICA
+  ══════════════════════════════════════════ -->
+  <main class="meta-screen">
+    <div class="meta-card">
+
+      <h1>🎯 Meta Calórica</h1>
+
+      <!-- Meta actual -->
+      <div class="meta-info">
+        <p>Tu meta actual</p>
+        <strong id="meta-actual">2000</strong>
+        <p>kcal por día</p>
+      </div>
+
+      <!-- Opciones rápidas -->
+      <p style="font-size:13px; color:#666; margin-bottom:12px;">Elige una meta rápida o escribe la tuya:</p>
+      <div class="meta-opciones" id="meta-opciones">
+        <div class="meta-opcion" data-valor="1500">
+          <strong>1500</strong> kcal<br>
+          <small>Perder peso</small>
+        </div>
+        <div class="meta-opcion" data-valor="1800">
+          <strong>1800</strong> kcal<br>
+          <small>Déficit ligero</small>
+        </div>
+        <div class="meta-opcion" data-valor="2000">
+          <strong>2000</strong> kcal<br>
+          <small>Mantenimiento</small>
+        </div>
+        <div class="meta-opcion" data-valor="2500">
+          <strong>2500</strong> kcal<br>
+          <small>Ganar músculo</small>
+        </div>
+      </div>
+
+      <!-- Input personalizado -->
+      <div class="input-group">
+        <label for="meta-input">O escribe una cantidad personalizada</label>
+        <input type="number" id="meta-input" placeholder="Ej. 1900" min="800" max="5000">
+      </div>
+
+      <p class="error-msg" id="error-msg"></p>
+
+      <button class="btn-primary" id="btn-guardar">Guardar Meta</button>
+
+      <a href="dashboard.html" class="btn-back">← Volver al Dashboard</a>
+
+    </div>
+  </main>
+
+  <script src="js/meta.js"></script>
+</body>
+</html>

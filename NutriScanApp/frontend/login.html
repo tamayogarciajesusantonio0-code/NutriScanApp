@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT IA — Iniciar Sesión</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       PANTALLA: LOGIN
+  ══════════════════════════════════════════ -->
+  <main class="auth-screen">
+    <div class="auth-card">
+
+      <!-- Logo de la app -->
+      <div class="auth-logo-wrap">
+        <img src="img/logo-app.png" alt="FIT IA">
+      </div>
+
+      <!-- Título -->
+      <div class="auth-title">
+        <h1>FIT IA</h1>
+        <p>Analiza alimentos usando fotografías</p>
+      </div>
+
+      <!-- Formulario -->
+      <div class="input-group">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" placeholder="ejemplo@correo.com">
+      </div>
+
+      <div class="input-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••••••">
+      </div>
+
+      <p class="error-msg" id="error-msg"></p>
+
+      <button class="btn-primary" id="btn-login">Iniciar Sesión</button>
+
+      <div class="auth-link">
+        ¿No tienes cuenta? <a href="registro.html">Registrarse</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

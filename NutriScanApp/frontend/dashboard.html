@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT IA — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       PANTALLA: DASHBOARD
+  ══════════════════════════════════════════ -->
+  <div class="dashboard-screen">
+
+    <!-- ── HEADER ── -->
+    <header class="dash-header">
+
+      <!-- Logo empresa (esquina superior izquierda) -->
+      <div class="logo-empresa-wrap">
+        <img src="img/logo-empresa.png" alt="Talento Tecnológico">
+      </div>
+
+      <!-- Logo app + título -->
+      <img src="img/logo-app.png" alt="FIT IA" class="logo-app-header">
+      <h1>FIT IA</h1>
+      <p>Analiza alimentos mediante una fotografía</p>
+
+    </header>
+
+    <!-- ── GRID PRINCIPAL ── -->
+    <div class="dash-grid">
+
+      <!-- Columna izquierda: Escanear -->
+      <div class="card">
+        <h2>📷 Escanear Alimento</h2>
+
+        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('foto-input').click()">
+          <div class="upload-icon">🥗</div>
+          <h3>Sube una foto del alimento</h3>
+          <p>JPG · PNG · Máx. 10 MB</p>
+          <input type="file" id="foto-input" accept="image/*">
+        </div>
+
+        <!-- Preview de imagen seleccionada -->
+        <img id="img-preview" class="img-preview" src="" alt="Vista previa">
+
+        <button class="btn-primary" id="btn-analizar" style="margin-top: 14px;">
+          Analizar con IA
+        </button>
+      </div>
+
+      <!-- Columna derecha: Resultado nutricional -->
+      <div class="card">
+        <h2>📊 Información Nutricional</h2>
+
+        <!-- Estado vacío -->
+        <div id="estado-vacio" style="text-align:center; padding: 40px 0; color: #aaa;">
+          <div style="font-size:48px; margin-bottom:10px;">🔍</div>
+          <p>Sube una foto para ver el análisis</p>
+        </div>
+
+        <!-- Spinner de carga -->
+        <div class="spinner" id="spinner">
+          <div class="spinner-ring"></div>
+          <p>Analizando con inteligencia artificial…</p>
+        </div>
+
+        <!-- Resultado real -->
+        <div class="resultado-ia" id="resultado-ia">
+          <p class="alimento-nombre" id="res-nombre">—</p>
+          <span class="confianza-badge" id="res-confianza">Confianza: —%</span>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <h2 id="res-calorias">—</h2>
+              <p>Calorías</p>
+            </div>
+            <div class="stat-box">
+              <h2 id="res-peso">—</h2>
+              <p>Peso est.</p>
+            </div>
+            <div class="stat-box">
+              <h2 id="res-proteinas">—</h2>
+              <p>Proteínas</p>
+            </div>
+            <div class="stat-box">
+              <h2 id="res-grasas">—</h2>
+              <p>Grasas</p>
+            </div>
+          </div>
+
+          <p class="prog-label" id="label-prot">Proteínas (—g)</p>
+          <div class="progress-bar"><div class="fill" id="bar-prot" style="width:0%"></div></div>
+
+          <p class="prog-label" id="label-carb">Carbohidratos (—g)</p>
+          <div class="progress-bar"><div class="fill" id="bar-carb" style="width:0%"></div></div>
+
+          <p class="prog-label" id="label-gras">Grasas (—g)</p>
+          <div class="progress-bar"><div class="fill" id="bar-gras" style="width:0%"></div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── META DIARIA ── -->
+    <div class="meta-block">
+      <div class="meta-top">
+        <div>
+          <h2>🎯 Meta Diaria</h2>
+          <div class="meta-num" id="calorias-hoy">0</div>
+          <p class="meta-sub">de <strong id="meta-total">2000</strong> kcal consumidas hoy</p>
+        </div>
+        <a href="meta.html" class="btn-pill">Editar Meta</a>
+      </div>
+      <div class="progress-bar" style="height:14px;">
+        <div class="fill" id="barra-meta" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- ── HISTORIAL DEL DÍA ── -->
+    <div class="card">
+      <h2>🕐 Alimentos de hoy</h2>
+      <ul class="historial-lista" id="historial-lista">
+        <li style="color:#aaa; font-size:14px; text-align:center; padding:16px 0;">
+          Aún no has registrado alimentos hoy
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── CERRAR SESIÓN ── -->
+    <a href="login.html" class="logout-link" id="btn-logout">Cerrar Sesión</a>
+
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
