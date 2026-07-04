@@ -11,6 +11,11 @@ const fs      = require('fs');
 
 const app = express();
 
+app.use((req, res, next) => {
+  res.setTimeout(120000);
+  next();
+});
+
 // ── Crear carpeta de uploads si no existe ──
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
