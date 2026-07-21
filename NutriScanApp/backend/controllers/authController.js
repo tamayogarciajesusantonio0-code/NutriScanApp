@@ -25,6 +25,8 @@ exports.registro = async (req, res) => {
     );
 
     const link = `${process.env.URL_APP}/api/auth/verificar/${token}`;
+    console.log('URL_APP:', process.env.URL_APP);
+    console.log('Link generado:', link);
 
     await enviarEmail({
       destinatario: correo,
@@ -134,7 +136,7 @@ exports.olvidoPassword = async (req, res) => {
       return res.json({ mensaje: 'Si ese correo existe, recibirás un email.' });
 
     const token  = crypto.randomBytes(32).toString('hex');
-    const expira = new Date(Date.now() + 3600000); // 1 hora
+    const expira = new Date(Date.now() + 3600000);
 
     await db.query(
       'UPDATE usuarios SET token_reset = ?, token_reset_expira = ? WHERE id = ?',
