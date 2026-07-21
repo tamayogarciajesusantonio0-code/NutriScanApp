@@ -8,86 +8,81 @@
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════
-       PANTALLA: DASHBOARD
-  ══════════════════════════════════════════ -->
+  <!-- MODAL TÉRMINOS Y CONDICIONES -->
+  <div class="modal-overlay" id="modal-terminos" style="display:none;">
+    <div class="modal-card">
+      <h2>📋 Términos y Condiciones</h2>
+      <div class="modal-body">
+        <h4>1. Uso de la aplicación</h4>
+        <p>FIT IA es una herramienta de apoyo nutricional. Los análisis realizados por inteligencia artificial son estimaciones y no reemplazan el consejo de un profesional de la salud.</p>
+        <h4>2. Privacidad de datos</h4>
+        <p>Tus datos personales y fotografías son procesados de forma segura. No compartimos tu información con terceros sin tu consentimiento.</p>
+        <h4>3. Uso de imágenes</h4>
+        <p>Las fotografías que subas son analizadas por IA y eliminadas inmediatamente después del análisis. No almacenamos tus imágenes.</p>
+        <h4>4. Limitación de responsabilidad</h4>
+        <p>FIT IA no se hace responsable de decisiones alimenticias tomadas basándose únicamente en los resultados de la aplicación.</p>
+        <h4>5. Aceptación</h4>
+        <p>Al usar FIT IA aceptas estos términos y condiciones. Nos reservamos el derecho de actualizarlos en cualquier momento.</p>
+      </div>
+      <div class="modal-btns">
+        <button class="btn-secondary" id="btn-rechazar">Cerrar sesión</button>
+        <button class="btn-primary" id="btn-aceptar" style="width:auto; padding:12px 28px;">Acepto</button>
+      </div>
+    </div>
+  </div>
+
   <div class="dashboard-screen">
 
-    <!-- ── HEADER ── -->
+    <!-- HEADER -->
     <header class="dash-header">
-
-      <!-- Logo empresa (esquina superior izquierda) -->
       <div class="logo-empresa-wrap">
         <img src="img/logo-empresa.png" alt="Talento Tecnológico">
       </div>
-
-      <!-- Logo app + título -->
+      <a href="perfil.html" class="perfil-link">👤 Mi Perfil</a>
       <img src="img/logo-app.png" alt="FIT IA" class="logo-app-header">
       <h1>FIT IA</h1>
       <p>Analiza alimentos mediante una fotografía</p>
-
     </header>
 
-    <!-- ── GRID PRINCIPAL ── -->
+    <!-- GRID PRINCIPAL -->
     <div class="dash-grid">
 
-      <!-- Columna izquierda: Escanear -->
       <div class="card">
         <h2>📷 Escanear Alimento</h2>
-
         <div class="upload-zone" id="upload-zone" onclick="document.getElementById('foto-input').click()">
           <div class="upload-icon">🥗</div>
           <h3>Sube una foto del alimento</h3>
           <p>JPG · PNG · Máx. 10 MB</p>
           <input type="file" id="foto-input" accept="image/*">
         </div>
-
-        <!-- Preview de imagen seleccionada -->
         <img id="img-preview" class="img-preview" src="" alt="Vista previa">
-
-        <button class="btn-primary" id="btn-analizar" style="margin-top: 14px;">
+        <button class="btn-primary" id="btn-analizar" style="margin-top:14px;">
           Analizar con IA
         </button>
       </div>
 
-      <!-- Columna derecha: Resultado nutricional -->
       <div class="card">
         <h2>📊 Información Nutricional</h2>
 
-        <!-- Estado vacío -->
-        <div id="estado-vacio" style="text-align:center; padding: 40px 0; color: #aaa;">
+        <div id="estado-vacio" style="text-align:center; padding:40px 0; color:#aaa;">
           <div style="font-size:48px; margin-bottom:10px;">🔍</div>
           <p>Sube una foto para ver el análisis</p>
         </div>
 
-        <!-- Spinner de carga -->
         <div class="spinner" id="spinner">
           <div class="spinner-ring"></div>
           <p>Analizando con inteligencia artificial…</p>
         </div>
 
-        <!-- Resultado real -->
         <div class="resultado-ia" id="resultado-ia">
           <p class="alimento-nombre" id="res-nombre">—</p>
           <span class="confianza-badge" id="res-confianza">Confianza: —%</span>
 
           <div class="stats-grid">
-            <div class="stat-box">
-              <h2 id="res-calorias">—</h2>
-              <p>Calorías</p>
-            </div>
-            <div class="stat-box">
-              <h2 id="res-peso">—</h2>
-              <p>Peso est.</p>
-            </div>
-            <div class="stat-box">
-              <h2 id="res-proteinas">—</h2>
-              <p>Proteínas</p>
-            </div>
-            <div class="stat-box">
-              <h2 id="res-grasas">—</h2>
-              <p>Grasas</p>
-            </div>
+            <div class="stat-box"><h2 id="res-calorias">—</h2><p>Calorías</p></div>
+            <div class="stat-box"><h2 id="res-peso">—</h2><p>Peso est.</p></div>
+            <div class="stat-box"><h2 id="res-proteinas">—</h2><p>Proteínas</p></div>
+            <div class="stat-box"><h2 id="res-grasas">—</h2><p>Grasas</p></div>
           </div>
 
           <p class="prog-label" id="label-prot">Proteínas (—g)</p>
@@ -99,11 +94,10 @@
           <p class="prog-label" id="label-gras">Grasas (—g)</p>
           <div class="progress-bar"><div class="fill" id="bar-gras" style="width:0%"></div></div>
         </div>
-
       </div>
     </div>
 
-    <!-- ── META DIARIA ── -->
+    <!-- META DIARIA -->
     <div class="meta-block">
       <div class="meta-top">
         <div>
@@ -118,7 +112,7 @@
       </div>
     </div>
 
-    <!-- ── HISTORIAL DEL DÍA ── -->
+    <!-- HISTORIAL -->
     <div class="card">
       <h2>🕐 Alimentos de hoy</h2>
       <ul class="historial-lista" id="historial-lista">
@@ -128,7 +122,6 @@
       </ul>
     </div>
 
-    <!-- ── CERRAR SESIÓN ── -->
     <a href="login.html" class="logout-link" id="btn-logout">Cerrar Sesión</a>
 
   </div>

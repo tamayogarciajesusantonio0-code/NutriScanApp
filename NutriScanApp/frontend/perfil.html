@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT IA — Mi Perfil</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="dashboard-screen">
+
+    <header class="dash-header">
+      <div class="logo-empresa-wrap">
+        <img src="img/logo-empresa.png" alt="Talento Tecnológico">
+      </div>
+      <img src="img/logo-app.png" alt="FIT IA" class="logo-app-header">
+      <h1>Mi Perfil</h1>
+      <p>Administra tu información personal</p>
+    </header>
+
+    <div class="card" style="max-width:500px; margin:0 auto;">
+
+      <!-- Avatar -->
+      <div style="text-align:center; margin-bottom:24px;">
+        <div class="avatar-circle" id="avatar-circle">👤</div>
+        <h2 id="perfil-nombre" style="margin-top:12px; color:#222;">—</h2>
+        <p id="perfil-correo" style="color:#666; font-size:14px;">—</p>
+      </div>
+
+      <div class="input-group">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" placeholder="Tu nombre">
+      </div>
+
+      <div class="input-group">
+        <label for="telefono">Teléfono (opcional)</label>
+        <input type="tel" id="telefono" placeholder="Ej. 8112345678">
+      </div>
+
+      <p class="error-msg" id="error-msg"></p>
+      <p class="success-msg" id="success-msg"></p>
+
+      <button class="btn-primary" id="btn-guardar">Guardar Cambios</button>
+
+      <a href="dashboard.html" class="btn-back" style="margin-top:16px;">
+        ← Volver al Dashboard
+      </a>
+
+    </div>
+
+  </div>
+
+  <script src="js/perfil.js"></script>
+</body>
+</html>

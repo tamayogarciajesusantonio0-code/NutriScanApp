@@ -1,6 +1,5 @@
 /* ============================================================
    server.js — Punto de entrada del servidor Express
-   Puerto: definido en .env (default 3000)
    ============================================================ */
 
 require('dotenv').config();
@@ -10,11 +9,6 @@ const path    = require('path');
 const fs      = require('fs');
 
 const app = express();
-
-app.use((req, res, next) => {
-  res.setTimeout(120000);
-  next();
-});
 
 // ── Crear carpeta de uploads si no existe ──
 const uploadsDir = path.join(__dirname, '../uploads');
@@ -29,16 +23,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 // ── Rutas de la API ──
-app.use('/api/auth', require('./routes/authRoutes'));   // Login / Registro
-app.use('/api/food', require('./routes/foodRoutes'));   // Analizar foto / Historial
-app.use('/api/user', require('./routes/userRoutes'));   // Perfil / Meta calórica
+app.use('/api/auth',   require('./routes/authRoutes'));
+app.use('/api/food',   require('./routes/foodRoutes'));
+app.use('/api/user',   require('./routes/userRoutes'));
+app.use('/api/perfil', require('./routes/perfilRoutes'));
 
-// ── Ruta catch-all: cualquier otra ruta devuelve el frontend ──
+// ── Ruta catch-all ──
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/login.html'));
 });
 
-// ── Iniciar servidor ──
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);

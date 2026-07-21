@@ -1,16 +1,21 @@
 /* ============================================================
-   authRoutes.js — Rutas públicas de autenticación
-   Base: /api/auth
+   authRoutes.js — Rutas de autenticación
    ============================================================ */
 
 const express = require('express');
 const router  = express.Router();
-const { login, registro } = require('../controllers/authController');
+const {
+  login,
+  registro,
+  verificarCorreo,
+  olvidoPassword,
+  resetPassword
+} = require('../controllers/authController');
 
-// POST /api/auth/registro → Crear cuenta nueva
-router.post('/registro', registro);
-
-// POST /api/auth/login → Iniciar sesión (devuelve JWT)
-router.post('/login', login);
+router.post('/registro',        registro);
+router.post('/login',           login);
+router.get('/verificar/:token', verificarCorreo);
+router.post('/olvido-password', olvidoPassword);
+router.post('/reset-password',  resetPassword);
 
 module.exports = router;
