@@ -1,23 +1,15 @@
 /* ============================================================
-   email.js — Envío de correos con Gmail (nodemailer)
+   email.js — Envío de correos con Resend
    ============================================================ */
 
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 require('dotenv').config();
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_FROM,
-    pass: process.env.GMAIL_APP_PASSWORD
-  }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const enviarEmail = async ({ destinatario, asunto, html }) => {
-  await transporter.sendMail({
-    from: `"FIT IA" <${process.env.EMAIL_FROM}>`,
+  await resend.emails.send({
+    from: 'FIT IA <onboarding@resend.dev>',
     to: destinatario,
     subject: asunto,
     html
