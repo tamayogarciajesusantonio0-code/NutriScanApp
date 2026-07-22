@@ -60,12 +60,77 @@ exports.verificarCorreo = async (req, res) => {
     const [rows] = await db.query(
       'SELECT * FROM usuarios WHERE token_verificacion = ?', [token]
     );
+
     if (!rows.length)
       return res.status(400).send(`
-        <div style="font-family:Arial;text-align:center;padding:60px;">
-          <h2 style="color:#c0392b;">❌ Link inválido o ya utilizado.</h2>
-          <a href="${process.env.URL_APP}" style="color:#0f9d58;">Volver a la app</a>
-        </div>`);
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>FIT IA — Link Inválido</title>
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+              font-family: 'Segoe UI', Arial, sans-serif;
+              min-height: 100vh;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: linear-gradient(135deg, #0f9d58, #25c97b);
+              padding: 20px;
+            }
+            .card {
+              background: white;
+              border-radius: 24px;
+              padding: 50px 40px;
+              max-width: 460px;
+              width: 100%;
+              text-align: center;
+              box-shadow: 0 20px 60px rgba(0,0,0,.15);
+              animation: slideUp .4s ease;
+            }
+            .icono {
+              width: 80px;
+              height: 80px;
+              background: #fdecea;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 24px;
+              font-size: 36px;
+            }
+            h1 { color: #c0392b; font-size: 26px; margin-bottom: 12px; }
+            p  { color: #666; font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+            a {
+              display: inline-block;
+              padding: 14px 36px;
+              background: #0f9d58;
+              color: white;
+              border-radius: 12px;
+              font-weight: 600;
+              font-size: 16px;
+              text-decoration: none;
+              transition: background .2s, transform .2s;
+            }
+            a:hover { background: #0d874c; transform: translateY(-2px); }
+            @keyframes slideUp {
+              from { transform: translateY(30px); opacity: 0; }
+              to   { transform: translateY(0);    opacity: 1; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <div class="icono">❌</div>
+            <h1>Link inválido</h1>
+            <p>Este link de verificación ya fue utilizado o ha expirado.<br>
+               Intenta registrarte nuevamente.</p>
+            <a href="${process.env.URL_APP}">Volver a la app</a>
+          </div>
+        </body>
+        </html>`);
 
     await db.query(
       'UPDATE usuarios SET verificado = TRUE, token_verificacion = NULL WHERE id = ?',
@@ -73,13 +138,75 @@ exports.verificarCorreo = async (req, res) => {
     );
 
     res.send(`
-      <div style="font-family:Arial;text-align:center;padding:60px;">
-        <h2 style="color:#0f9d58;">✅ ¡Correo verificado!</h2>
-        <p>Ya puedes iniciar sesión en FIT IA.</p>
-        <a href="${process.env.URL_APP}" style="display:inline-block;margin-top:20px;
-           padding:14px 28px;background:#0f9d58;color:white;border-radius:12px;
-           text-decoration:none;font-weight:bold;">Ir a la app</a>
-      </div>`);
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FIT IA — Cuenta Verificada</title>
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f9d58, #25c97b);
+            padding: 20px;
+          }
+          .card {
+            background: white;
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,.15);
+            animation: slideUp .4s ease;
+          }
+          .icono {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0f9d58, #25c97b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+          }
+          h1 { color: #0f9d58; font-size: 26px; margin-bottom: 12px; }
+          p  { color: #666; font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+          a {
+            display: inline-block;
+            padding: 14px 36px;
+            background: #0f9d58;
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background .2s, transform .2s;
+          }
+          a:hover { background: #0d874c; transform: translateY(-2px); }
+          @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="card">
+          <div class="icono">✅</div>
+          <h1>¡Cuenta verificada!</h1>
+          <p>Tu correo ha sido verificado exitosamente.<br>
+             Ya puedes iniciar sesión en FIT IA.</p>
+          <a href="${process.env.URL_APP}">Ir a la app</a>
+        </div>
+      </body>
+      </html>`);
+
   } catch (err) {
     console.error('Error verificando:', err);
     res.status(500).send('Error interno.');
