@@ -9,7 +9,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const enviarEmail = async ({ destinatario, asunto, html }) => {
   await resend.emails.send({
-    from: 'FIT IA <onboarding@resend.dev>',
+    from: 'FIT IA <noreply@fictia.com.mx>',
     to: destinatario,
     subject: asunto,
     html
