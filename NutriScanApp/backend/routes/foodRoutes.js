@@ -9,9 +9,9 @@ const router  = express.Router();
 const multer  = require('multer');
 const path    = require('path');
 const auth    = require('../middleware/authMiddleware');
-const { analizarFoto, obtenerHistorial } = require('../controllers/foodController');
+const { analizarFoto, obtenerHistorial, eliminarAlimento } = require('../controllers/foodController');
 
-// Configurar multer: guardar en /uploads con nombre único
+// Configurar multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, '../../uploads'));
@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
   }
 });
 
-// Solo permitir imágenes
 const fileFilter = (req, file, cb) => {
   const permitidos = ['image/jpeg', 'image/png', 'image/webp'];
   if (permitidos.includes(file.mimetype)) {
@@ -35,7 +34,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 } // Máx. 10 MB
+  limits: { fileSize: 10 * 1024 * 1024 }
 });
 
 // POST /api/food/analizar → Analizar foto con Claude Vision
@@ -43,5 +42,8 @@ router.post('/analizar', auth, upload.single('foto'), analizarFoto);
 
 // GET /api/food/historial → Alimentos del día actual
 router.get('/historial', auth, obtenerHistorial);
+
+// DELETE /api/food/alimento/:id → Eliminar alimento del historial
+router.delete('/alimento/:id', auth, eliminarAlimento);
 
 module.exports = router;

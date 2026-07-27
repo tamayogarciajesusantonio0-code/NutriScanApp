@@ -34,9 +34,7 @@ async function verificarTerminos() {
     if (!data.terminos_aceptados) {
       modalTerminos.style.display = 'flex';
     }
-  } catch {
-    // silencioso
-  }
+  } catch {}
 }
 
 /* ── Aceptar términos ── */
@@ -46,9 +44,7 @@ document.getElementById('btn-aceptar').addEventListener('click', async () => {
       method: 'PUT',
       headers: { Authorization: 'Bearer ' + token }
     });
-  } catch {
-    // silencioso
-  }
+  } catch {}
   modalTerminos.style.display = 'none';
 });
 
@@ -59,7 +55,7 @@ document.getElementById('btn-rechazar').addEventListener('click', () => {
   window.location.href = 'login.html';
 });
 
-/* ── 2. Cargar perfil y meta ── */
+/* ── 2. Cargar perfil, meta y foto de usuario ── */
 async function cargarPerfil() {
   try {
     const res  = await fetch('/api/user/perfil', {
@@ -68,9 +64,23 @@ async function cargarPerfil() {
     if (!res.ok) throw new Error();
     const data = await res.json();
     document.getElementById('meta-total').textContent = data.meta_calorica;
-  } catch {
-    // silencioso
-  }
+
+    // Mostrar nombre y foto en el header
+    const nombreUsuario = document.getElementById('nombre-usuario');
+    const fotoUsuario   = document.getElementById('foto-usuario');
+    const avatarLetra   = document.getElementById('avatar-letra');
+
+    if (nombreUsuario) nombreUsuario.textContent = data.nombre;
+
+    if (data.foto_perfil) {
+      fotoUsuario.src = data.foto_perfil;
+      fotoUsuario.style.display = 'block';
+      if (avatarLetra) avatarLetra.style.display = 'none';
+    } else {
+      if (avatarLetra) avatarLetra.textContent = data.nombre.charAt(0).toUpperCase();
+      fotoUsuario.style.display = 'none';
+    }
+  } catch {}
 }
 
 /* ── 3. Calorías consumidas hoy ── */
@@ -86,9 +96,7 @@ async function cargarCaloriasHoy() {
     document.getElementById('calorias-hoy').textContent = total;
     const porcentaje = Math.min((total / meta) * 100, 100);
     document.getElementById('barra-meta').style.width = porcentaje + '%';
-  } catch {
-    // silencioso
-  }
+  } catch {}
 }
 
 /* ── 4. Historial de alimentos del día ── */
@@ -99,20 +107,53 @@ async function cargarHistorial() {
     });
     const lista = await res.json();
 
-    if (!lista.length) return;
+    historialLista.innerHTML = '';
+
+    if (!lista.length) {
+      historialLista.innerHTML = `
+        <li style="color:#aaa; font-size:14px; text-align:center; padding:16px 0;">
+          Aún no has registrado alimentos hoy
+        </li>`;
+      return;
+    }
 
     historialLista.innerHTML = lista.map(item => `
-      <li class="historial-item">
+      <li class="historial-item" data-id="${item.id}">
         <span>${item.nombre}</span>
-        <span>${item.calorias} kcal</span>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span>${item.calorias} kcal</span>
+          <button class="btn-eliminar" onclick="eliminarAlimento(${item.id})"
+            style="background:none; border:none; cursor:pointer; color:#c0392b; font-size:18px; line-height:1;">
+            🗑️
+          </button>
+        </div>
       </li>
     `).join('');
+  } catch {}
+}
+
+/* ── 5. Eliminar alimento ── */
+async function eliminarAlimento(id) {
+  if (!confirm('¿Quieres eliminar este alimento del registro?')) return;
+
+  try {
+    const res = await fetch(`/api/food/alimento/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: 'Bearer ' + token }
+    });
+
+    if (res.ok) {
+      await cargarCaloriasHoy();
+      await cargarHistorial();
+    } else {
+      alert('Error al eliminar el alimento.');
+    }
   } catch {
-    // silencioso
+    alert('No se pudo conectar con el servidor.');
   }
 }
 
-/* ── 5. Preview al seleccionar imagen ── */
+/* ── 6. Preview al seleccionar imagen ── */
 fotoInput.addEventListener('change', () => {
   const archivo = fotoInput.files[0];
   if (!archivo) return;
@@ -126,7 +167,7 @@ fotoInput.addEventListener('change', () => {
   reader.readAsDataURL(archivo);
 });
 
-/* ── 6. Analizar foto con IA ── */
+/* ── 7. Analizar foto con IA ── */
 btnAnalizar.addEventListener('click', async () => {
   const archivo = fotoInput.files[0];
   if (!archivo) {

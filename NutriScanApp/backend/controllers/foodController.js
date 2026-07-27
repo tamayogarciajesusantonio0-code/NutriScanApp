@@ -82,3 +82,24 @@ exports.obtenerHistorial = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el historial.' });
   }
 };
+
+exports.eliminarAlimento = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Verificar que el alimento pertenece al usuario
+    const [rows] = await db.query(
+      'SELECT id FROM alimentos WHERE id = ? AND usuario_id = ?',
+      [id, req.usuario.id]
+    );
+
+    if (!rows.length)
+      return res.status(404).json({ error: 'Alimento no encontrado.' });
+
+    await db.query('DELETE FROM alimentos WHERE id = ?', [id]);
+
+    res.json({ mensaje: 'Alimento eliminado correctamente.' });
+  } catch (err) {
+    console.error('Error al eliminar alimento:', err);
+    res.status(500).json({ error: 'Error al eliminar el alimento.' });
+  }
+};

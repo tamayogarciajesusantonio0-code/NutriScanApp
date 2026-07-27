@@ -19,6 +19,14 @@ btnRegistro.addEventListener('click', async () => {
     errorMsg.textContent = 'Por favor completa todos los campos.';
     return;
   }
+
+  // Validar formato de correo
+  const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!regexCorreo.test(correo)) {
+    errorMsg.textContent = 'El correo debe tener un formato válido (ejemplo@correo.com).';
+    return;
+  }
+
   if (password.length < 6) {
     errorMsg.textContent = 'La contraseña debe tener al menos 6 caracteres.';
     return;
@@ -42,8 +50,7 @@ btnRegistro.addEventListener('click', async () => {
     const data = await res.json();
 
     if (res.ok) {
-      // Redirigir al login con mensaje de éxito
-      alert('¡Cuenta creada! Ahora inicia sesión.');
+      alert('¡Cuenta creada! Revisa tu correo para verificarla.');
       window.location.href = 'login.html';
     } else {
       errorMsg.textContent = data.error || 'Error al crear la cuenta.';

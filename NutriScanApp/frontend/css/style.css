@@ -164,4 +164,32 @@ img { display: block; max-width: 100%; }
 @media (max-width: 480px) {
   .auth-card { padding: 28px 22px; }
   .meta-opciones { grid-template-columns: 1fr; }
+  /* ── Avatar de usuario en header ── */
+.avatar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,255,255,0.2);
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: background .2s, transform .2s;
+  cursor: pointer;
+}
+
+.perfil-link:hover {
+  background: rgba(255,255,255,0.35);
+  transform: translateY(-1px);
+}
 }

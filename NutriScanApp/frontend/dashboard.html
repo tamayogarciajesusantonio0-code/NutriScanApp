@@ -35,13 +35,30 @@
 
     <!-- HEADER -->
     <header class="dash-header">
+
       <div class="logo-empresa-wrap">
         <img src="img/logo-empresa.png" alt="Talento Tecnológico">
       </div>
-      <a href="perfil.html" class="perfil-link">👤 Mi Perfil</a>
+
+      <!-- Perfil de usuario en header -->
+      <a href="perfil.html" class="perfil-link" id="perfil-link-header">
+        <div class="avatar-header" id="avatar-header">
+          <img src="" alt="Foto de perfil" id="foto-usuario"
+            style="display:none; width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          <span id="avatar-letra"
+            style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.3);
+                   display:flex; align-items:center; justify-content:center;
+                   font-weight:700; font-size:16px;">
+            ?
+          </span>
+        </div>
+        <span id="nombre-usuario">Mi Perfil</span>
+      </a>
+
       <img src="img/logo-app.png" alt="FIT IA" class="logo-app-header">
       <h1>FIT IA</h1>
       <p>Analiza alimentos mediante una fotografía</p>
+
     </header>
 
     <!-- GRID PRINCIPAL -->
