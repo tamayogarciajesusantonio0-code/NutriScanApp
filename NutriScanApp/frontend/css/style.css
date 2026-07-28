@@ -192,4 +192,11 @@ img { display: block; max-width: 100%; }
   background: rgba(255,255,255,0.35);
   transform: translateY(-1px);
 }
+.img-preview {
+  cursor: pointer;
+}
+.img-preview:hover {
+  opacity: 0.85;
+  transition: opacity .2s;
+}
 }

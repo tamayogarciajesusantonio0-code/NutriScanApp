@@ -167,6 +167,12 @@ fotoInput.addEventListener('change', () => {
   reader.readAsDataURL(archivo);
 });
 
+// Click en la preview para cambiar la imagen
+imgPreview.addEventListener('click', () => {
+  fotoInput.value = '';
+  fotoInput.click();
+});
+
 /* ── 7. Analizar foto con IA ── */
 btnAnalizar.addEventListener('click', async () => {
   const archivo = fotoInput.files[0];
