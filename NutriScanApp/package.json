@@ -2,10 +2,12 @@
   "name": "nutriscanapp",
   "version": "1.0.0",
   "description": "App de análisis nutricional con fotografías e IA",
-  "main": "backend/server.js",
+  "main": "electron.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+    "dev": "nodemon backend/server.js",
+    "electron": "electron .",
+    "build": "electron-builder"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
@@ -20,6 +22,22 @@
     "resend": "^6.17.2"
   },
   "devDependencies": {
+    "electron": "^43.2.0",
     "nodemon": "^3.0.1"
+  },
+  "build": {
+    "appId": "com.fitia.app",
+    "productName": "FIT IA",
+    "icon": "frontend/img/logo-app.png",
+    "win": {
+      "target": "nsis"
+    },
+    "files": [
+      "backend/**/*",
+      "frontend/**/*",
+      "electron.js",
+      "package.json",
+      ".env"
+    ]
   }
 }
